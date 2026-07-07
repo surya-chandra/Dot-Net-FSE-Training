@@ -1,0 +1,2 @@
+Screenshot placeholder — Lab 01 Output
+Replace this file with an actual screenshot of the console output after running Lab 01.
