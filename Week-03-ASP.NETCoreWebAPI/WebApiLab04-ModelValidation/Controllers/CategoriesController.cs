@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApiLab04.DTOs;
 using WebApiLab04.Interfaces;
 using WebApiLab04.Models;
 
 namespace WebApiLab04.Controllers;
 
-/// <summary>Categories controller — demonstrates [StringLength] validation.</summary>
 [ApiController]
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
@@ -17,7 +16,6 @@ public class CategoriesController : ControllerBase
         _categoryRepository = categoryRepository;
     }
 
-    /// <summary>Retrieves all categories.</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -25,7 +23,6 @@ public class CategoriesController : ControllerBase
         return Ok(categories);
     }
 
-    /// <summary>Retrieves a category by ID.</summary>
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -36,7 +33,6 @@ public class CategoriesController : ControllerBase
         return Ok(category);
     }
 
-    /// <summary>Creates a new category with [StringLength] validation.</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCategoryDto dto)
     {

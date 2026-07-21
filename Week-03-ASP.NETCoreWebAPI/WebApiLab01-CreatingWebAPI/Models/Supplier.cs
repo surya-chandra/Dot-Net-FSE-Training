@@ -1,6 +1,5 @@
-namespace WebApiLab01.Models;
+﻿namespace WebApiLab01.Models;
 
-/// <summary>Represents a product supplier.</summary>
 public class Supplier
 {
     public int Id { get; set; }

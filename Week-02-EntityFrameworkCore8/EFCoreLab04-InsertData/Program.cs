@@ -1,26 +1,25 @@
-using EFCoreLab04.Data;
+﻿using EFCoreLab04.Data;
 using EFCoreLab04.Models;
 using Microsoft.EntityFrameworkCore;
 
-// ============================================================
-//  Lab 04 — Insert Data
-//  Retail Inventory System
-// ============================================================
-//
-//  INSERT METHODS:
-//  ---------------
-//  context.Add(entity)          — tracks a single entity as Added
-//  context.AddRange(list)       — tracks multiple entities as Added
-//  context.SaveChanges()        — executes INSERT SQL for all Added entities
-//
-//  CHANGE TRACKING:
-//  ----------------
-//  EF Core tracks every entity you load or add.
-//  States: Added | Unchanged | Modified | Deleted | Detached
-//
-//  When you call Add(), the entity state becomes "Added".
-//  When you call SaveChanges(), EF Core generates INSERT SQL
-//  for every entity in the "Added" state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Console.WriteLine("==============================================");
 Console.WriteLine("  Lab 04 — Insert Data");
@@ -28,12 +27,10 @@ Console.WriteLine("==============================================\n");
 
 using var context = new ApplicationDbContext();
 
-// Ensure the database and tables exist
 await context.Database.EnsureCreatedAsync();
 
-// ----------------------------------------------------------
-// Guard: skip seeding if data already exists
-// ----------------------------------------------------------
+
+
 if (await context.Categories.AnyAsync())
 {
     Console.WriteLine("Data already exists. Displaying existing records...\n");
@@ -41,9 +38,8 @@ if (await context.Categories.AnyAsync())
     return;
 }
 
-// ----------------------------------------------------------
-// 1. Insert a single Category using Add()
-// ----------------------------------------------------------
+
+
 Console.WriteLine("Step 1 — Insert single Category using Add()");
 Console.WriteLine("--------------------------------------------");
 
@@ -53,15 +49,14 @@ var electronics = new Category
     Description = "Electronic gadgets, devices, and accessories"
 };
 
-context.Categories.Add(electronics);   // State: Added
-await context.SaveChangesAsync();       // Executes: INSERT INTO Categories ...
+context.Categories.Add(electronics);   
+await context.SaveChangesAsync();       
 
 Console.WriteLine($"  ✓ Inserted Category: '{electronics.Name}'  (Id = {electronics.Id})");
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 2. Insert multiple Categories using AddRange()
-// ----------------------------------------------------------
+
+
 Console.WriteLine("Step 2 — Insert multiple Categories using AddRange()");
 Console.WriteLine("-----------------------------------------------------");
 
@@ -73,17 +68,16 @@ var moreCategories = new List<Category>
     new() { Name = "Books",       Description = "Fiction, non-fiction, and educational books" }
 };
 
-context.Categories.AddRange(moreCategories);  // All states: Added
-await context.SaveChangesAsync();              // Single round-trip to DB
+context.Categories.AddRange(moreCategories);  
+await context.SaveChangesAsync();              
 
 foreach (var cat in moreCategories)
     Console.WriteLine($"  ✓ Inserted Category: '{cat.Name}'  (Id = {cat.Id})");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 3. Insert Suppliers using AddRange()
-// ----------------------------------------------------------
+
+
 Console.WriteLine("Step 3 — Insert Suppliers using AddRange()");
 Console.WriteLine("-------------------------------------------");
 
@@ -103,14 +97,12 @@ foreach (var sup in suppliers)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 4. Insert Products using AddRange()
-//    Note: We use the Id values assigned after SaveChanges above
-// ----------------------------------------------------------
+
+
+
 Console.WriteLine("Step 4 — Insert Products using AddRange()");
 Console.WriteLine("------------------------------------------");
 
-// Retrieve category and supplier IDs for FK assignment
 int electronicsId  = electronics.Id;
 int clothingId     = moreCategories[0].Id;
 int homeGardenId   = moreCategories[1].Id;
@@ -143,21 +135,18 @@ foreach (var prod in products)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 5. Display all inserted records
-// ----------------------------------------------------------
+
+
 await DisplayAllRecordsAsync(context);
 
-// ============================================================
-// Helper: Display all records in a formatted table
-// ============================================================
+
+
 static async Task DisplayAllRecordsAsync(ApplicationDbContext ctx)
 {
     Console.WriteLine("==============================================");
     Console.WriteLine("  All Records in Database");
     Console.WriteLine("==============================================\n");
 
-    // Categories
     var categories = await ctx.Categories.OrderBy(c => c.Id).ToListAsync();
     Console.WriteLine($"CATEGORIES ({categories.Count} records):");
     Console.WriteLine($"  {"Id",-5} {"Name",-20} {"Description",-45}");
@@ -167,7 +156,6 @@ static async Task DisplayAllRecordsAsync(ApplicationDbContext ctx)
 
     Console.WriteLine();
 
-    // Suppliers
     var suppliers = await ctx.Suppliers.OrderBy(s => s.Id).ToListAsync();
     Console.WriteLine($"SUPPLIERS ({suppliers.Count} records):");
     Console.WriteLine($"  {"Id",-5} {"Name",-22} {"Email",-30} {"Phone",-18}");
@@ -177,7 +165,6 @@ static async Task DisplayAllRecordsAsync(ApplicationDbContext ctx)
 
     Console.WriteLine();
 
-    // Products with related data
     var products = await ctx.Products
         .Include(p => p.Category)
         .Include(p => p.Supplier)

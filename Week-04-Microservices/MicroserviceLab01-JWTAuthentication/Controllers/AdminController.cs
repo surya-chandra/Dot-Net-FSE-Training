@@ -1,30 +1,28 @@
-using JWTAuthService.DTOs;
+﻿using JWTAuthService.DTOs;
 using JWTAuthService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JWTAuthService.Controllers;
 
-// ============================================================
-//  ADMIN CONTROLLER
-//  -----------------
-//  All endpoints require [Authorize(Roles = "Admin")].
-//
-//  ROLE-BASED AUTHORIZATION:
-//  -------------------------
-//  [Authorize(Roles = "Admin")] checks that the JWT token
-//  contains a "role" claim with value "Admin".
-//
-//  If the token is valid but the role is "User":
-//      → 403 Forbidden  (authenticated but not authorised)
-//
-//  If no token is provided:
-//      → 401 Unauthorized
-// ============================================================
 
-/// <summary>
-/// Admin-only endpoints. Requires [Authorize(Roles = "Admin")].
-/// </summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = "Admin")]
@@ -40,15 +38,13 @@ public class AdminController : ControllerBase
         _logger         = logger;
     }
 
-    // -------------------------------------------------------
-    // GET /api/admin/dashboard
-    // Requires: valid JWT token with Role = "Admin"
-    // -------------------------------------------------------
 
-    /// <summary>
-    /// Admin dashboard — returns system statistics.
-    /// Requires Admin role. Returns 403 for non-Admin users.
-    /// </summary>
+
+
+
+
+
+
     [HttpGet("dashboard")]
     [ProducesResponseType(typeof(ApiResponseDto<object>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -77,15 +73,13 @@ public class AdminController : ControllerBase
             "Admin dashboard loaded successfully."));
     }
 
-    // -------------------------------------------------------
-    // GET /api/admin/users
-    // Returns all registered users — Admin only
-    // -------------------------------------------------------
 
-    /// <summary>
-    /// Returns a list of all registered users.
-    /// Admin role required.
-    /// </summary>
+
+
+
+
+
+
     [HttpGet("users")]
     [ProducesResponseType(typeof(ApiResponseDto<IEnumerable<UserProfileDto>>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

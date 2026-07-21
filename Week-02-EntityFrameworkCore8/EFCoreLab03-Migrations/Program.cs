@@ -1,30 +1,29 @@
-using EFCoreLab03.Data;
+﻿using EFCoreLab03.Data;
 using Microsoft.EntityFrameworkCore;
 
-// ============================================================
-//  Lab 03 — EF Core Migrations
-//  Retail Inventory System
-// ============================================================
-//
-//  WHAT IS A MIGRATION?
-//  --------------------
-//  A migration is a versioned snapshot of your model changes.
-//  Each migration contains:
-//    - Up()   : SQL to apply the change (CREATE TABLE, ALTER TABLE...)
-//    - Down()  : SQL to revert the change (DROP TABLE...)
-//
-//  MIGRATION FILES (in Migrations/ folder):
-//    20240101000000_InitialCreate.cs       — the migration class
-//    ApplicationDbContextModelSnapshot.cs  — current model state
-//
-//  EF Core compares the snapshot to your current model to
-//  determine what changed when you add a new migration.
-//
-//  WORKFLOW:
-//    1. Modify entity classes
-//    2. dotnet ef migrations add <MigrationName>
-//    3. dotnet ef database update
-//    4. Repeat for every schema change
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Console.WriteLine("==============================================");
 Console.WriteLine("  Lab 03 — EF Core Migrations");
@@ -32,9 +31,8 @@ Console.WriteLine("==============================================\n");
 
 using var context = new ApplicationDbContext();
 
-// ----------------------------------------------------------
-// 1. Show pending migrations (not yet applied to the DB)
-// ----------------------------------------------------------
+
+
 Console.WriteLine("Migration Status:");
 Console.WriteLine("-----------------");
 
@@ -53,17 +51,16 @@ try
 }
 catch (Exception)
 {
-    // Database may not exist yet — that's expected before first migration
+
     Console.WriteLine("  Database does not exist yet.");
     Console.WriteLine("  Run: dotnet ef database update");
 }
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 2. Apply all pending migrations programmatically
-//    (equivalent to: dotnet ef database update)
-// ----------------------------------------------------------
+
+
+
 Console.WriteLine("Applying Migrations:");
 Console.WriteLine("--------------------");
 try
@@ -81,9 +78,8 @@ catch (Exception ex)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 3. Verify tables were created
-// ----------------------------------------------------------
+
+
 Console.WriteLine("Verifying Database Schema:");
 Console.WriteLine("--------------------------");
 try
@@ -103,9 +99,8 @@ catch (Exception ex)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 4. Explain migration commands
-// ----------------------------------------------------------
+
+
 Console.WriteLine("EF Core Migration Commands Reference:");
 Console.WriteLine("--------------------------------------");
 Console.WriteLine("  dotnet ef migrations add InitialCreate");

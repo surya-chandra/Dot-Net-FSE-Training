@@ -1,20 +1,18 @@
-using JWTAuthService.Models;
+﻿using JWTAuthService.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace JWTAuthService.Data;
 
-/// <summary>
-/// EF Core DbContext for the JWT Authentication Microservice.
-///
-/// In a microservice architecture, each service owns its own database.
-/// This context manages only the Users table — no shared schema.
-/// </summary>
+
+
+
+
+
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
-    /// <summary>Maps to the [Users] table.</summary>
     public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,7 +31,6 @@ public class ApplicationDbContext : DbContext
                   .IsRequired()
                   .HasMaxLength(200);
 
-            // Unique constraint — no two users with the same email
             entity.HasIndex(u => u.Email)
                   .IsUnique()
                   .HasDatabaseName("IX_Users_Email");

@@ -1,27 +1,25 @@
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 
 namespace JWTAuthService.Middleware;
 
-// ============================================================
-//  GLOBAL EXCEPTION MIDDLEWARE
-//  ----------------------------
-//  Catches all unhandled exceptions and returns a consistent
-//  JSON error response. Must be registered FIRST in Program.cs.
-//
-//  HTTP STATUS CODE MAPPING:
-//  -------------------------
-//  InvalidOperationException  → 409 Conflict  (e.g. duplicate email)
-//  UnauthorizedAccessException → 401 Unauthorized
-//  ArgumentException          → 400 Bad Request
-//  KeyNotFoundException        → 404 Not Found
-//  (all others)               → 500 Internal Server Error
-// ============================================================
 
-/// <summary>
-/// Middleware that catches all unhandled exceptions and returns
-/// a structured JSON error response with the correct HTTP status code.
-/// </summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class GlobalExceptionMiddleware
 {
     private readonly RequestDelegate _next;

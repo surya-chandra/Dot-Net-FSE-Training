@@ -1,29 +1,28 @@
-using EFCoreLab06.Data;
+﻿using EFCoreLab06.Data;
 using EFCoreLab06.Models;
 using Microsoft.EntityFrameworkCore;
 
-// ============================================================
-//  Lab 06 — Update & Delete
-//  Retail Inventory System
-// ============================================================
-//
-//  UPDATE WORKFLOW:
-//  ----------------
-//  1. Retrieve the entity (Find / FirstOrDefault)
-//  2. Modify its properties
-//  3. Call SaveChanges() — EF Core generates UPDATE SQL
-//     (only changed columns are included in the SQL)
-//
-//  DELETE WORKFLOW:
-//  ----------------
-//  1. Retrieve the entity
-//  2. Call context.Remove(entity)
-//  3. Call SaveChanges() — EF Core generates DELETE SQL
-//
-//  EXCEPTION HANDLING:
-//  -------------------
-//  Always handle the case where an entity is not found
-//  before attempting to update or delete it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Console.WriteLine("==============================================");
 Console.WriteLine("  Lab 06 — Update & Delete");
@@ -33,17 +32,16 @@ using var context = new ApplicationDbContext();
 await context.Database.EnsureCreatedAsync();
 await SeedDataAsync(context);
 
-// ----------------------------------------------------------
-// 1. Update a single property
-// ----------------------------------------------------------
+
+
 PrintHeader("1. Update Single Property — Change Product Price");
 
 var laptop = await context.Products.FirstOrDefaultAsync(p => p.Name == "Laptop Pro 15");
 if (laptop is not null)
 {
     decimal oldPrice = laptop.Price;
-    laptop.Price = 1199.99m;   // modify the property
-    await context.SaveChangesAsync();  // EF Core detects the change and issues UPDATE
+    laptop.Price = 1199.99m;   
+    await context.SaveChangesAsync();  
 
     Console.WriteLine($"  Product  : {laptop.Name}");
     Console.WriteLine($"  Old Price: ${oldPrice:F2}");
@@ -53,9 +51,8 @@ if (laptop is not null)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 2. Update multiple properties
-// ----------------------------------------------------------
+
+
 PrintHeader("2. Update Multiple Properties — Restock a Product");
 
 var mouse = await context.Products.FirstOrDefaultAsync(p => p.Name == "Wireless Mouse");
@@ -75,9 +72,8 @@ if (mouse is not null)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 3. Bulk update — apply a 10% discount to all Sports products
-// ----------------------------------------------------------
+
+
 PrintHeader("3. Bulk Update — 10% Discount on Sports Products");
 
 var sportsProducts = await context.Products
@@ -97,9 +93,8 @@ Console.WriteLine($"  ✓ {sportsProducts.Count} Sports products discounted by 1
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 4. Update with invalid ID — proper null handling
-// ----------------------------------------------------------
+
+
 PrintHeader("4. Update with Invalid ID — Null Handling");
 
 int invalidId = 9999;
@@ -113,12 +108,10 @@ if (notFound is null)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 5. Delete a single record
-// ----------------------------------------------------------
+
+
 PrintHeader("5. Delete — Remove a Product");
 
-// Insert a temporary product to delete
 var tempProduct = new Product
 {
     Name          = "Temporary Product",
@@ -131,7 +124,6 @@ context.Products.Add(tempProduct);
 await context.SaveChangesAsync();
 Console.WriteLine($"  Inserted temporary product: '{tempProduct.Name}'  (Id = {tempProduct.Id})");
 
-// Now delete it
 var toDelete = await context.Products.FindAsync(tempProduct.Id);
 if (toDelete is not null)
 {
@@ -142,9 +134,8 @@ if (toDelete is not null)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 6. Delete with invalid ID — exception handling
-// ----------------------------------------------------------
+
+
 PrintHeader("6. Delete with Invalid ID — Exception Handling");
 
 try
@@ -164,9 +155,8 @@ catch (InvalidOperationException ex)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 7. Display final state of Products
-// ----------------------------------------------------------
+
+
 PrintHeader("7. Final Product List After Updates & Deletes");
 
 var finalProducts = await context.Products
@@ -183,9 +173,8 @@ foreach (var p in finalProducts)
 Console.WriteLine();
 Console.WriteLine("Lab 06 complete. Proceed to Lab 07 — LINQ Queries.");
 
-// ============================================================
-// Seed helper
-// ============================================================
+
+
 static async Task SeedDataAsync(ApplicationDbContext ctx)
 {
     if (await ctx.Categories.AnyAsync()) return;

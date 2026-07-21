@@ -1,29 +1,27 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApiLab04.DTOs;
 
-// ============================================================
-//  MODEL VALIDATION WITH DATA ANNOTATIONS
-//  ----------------------------------------
-//  Data Annotations are attributes applied to DTO properties.
-//  ASP.NET Core's [ApiController] automatically validates the
-//  model and returns 400 Bad Request if validation fails —
-//  no manual ModelState.IsValid check needed.
-//
-//  COMMON ANNOTATIONS:
-//  -------------------
-//  [Required]              — field must be present and non-empty
-//  [StringLength(max)]     — max (and optional min) string length
-//  [Range(min, max)]       — numeric value within a range
-//  [EmailAddress]          — must be a valid email format
-//  [Phone]                 — must be a valid phone format
-//  [MinLength(n)]          — minimum collection/string length
-//  [MaxLength(n)]          — maximum collection/string length
-//  [RegularExpression]     — must match a regex pattern
-//  [Url]                   — must be a valid URL
-// ============================================================
 
-/// <summary>DTO for creating a new product — fully validated.</summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class CreateProductDto
 {
     [Required(ErrorMessage = "Product name is required.")]
@@ -49,7 +47,6 @@ public class CreateProductDto
     public int SupplierId { get; set; }
 }
 
-/// <summary>DTO for updating an existing product — fully validated.</summary>
 public class UpdateProductDto
 {
     [Required(ErrorMessage = "Product name is required.")]
@@ -75,7 +72,6 @@ public class UpdateProductDto
     public int SupplierId { get; set; }
 }
 
-/// <summary>DTO for creating a supplier — demonstrates EmailAddress validation.</summary>
 public class CreateSupplierDto
 {
     [Required(ErrorMessage = "Supplier name is required.")]
@@ -93,7 +89,6 @@ public class CreateSupplierDto
     public string? Phone { get; set; }
 }
 
-/// <summary>DTO for creating a category.</summary>
 public class CreateCategoryDto
 {
     [Required(ErrorMessage = "Category name is required.")]
@@ -105,7 +100,6 @@ public class CreateCategoryDto
     public string? Description { get; set; }
 }
 
-/// <summary>Standard response DTO for products.</summary>
 public class ProductResponseDto
 {
     public int Id { get; set; }

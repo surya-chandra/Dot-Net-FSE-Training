@@ -1,23 +1,22 @@
-using EFCoreLab05.Data;
+﻿using EFCoreLab05.Data;
 using EFCoreLab05.Models;
 using Microsoft.EntityFrameworkCore;
 
-// ============================================================
-//  Lab 05 — Retrieve Data
-//  Retail Inventory System
-// ============================================================
-//
-//  RETRIEVAL METHODS:
-//  ------------------
-//  Find(id)            — looks up by primary key (checks cache first)
-//  First()             — first match; throws if none found
-//  FirstOrDefault()    — first match; returns null if none found
-//  Single()            — exactly one match; throws if 0 or 2+ found
-//  SingleOrDefault()   — exactly one match; returns null if none
-//  ToList()            — executes query, returns all results as List<T>
-//  Where(predicate)    — filters rows (translates to SQL WHERE)
-//  OrderBy(keySelector)— sorts ascending (SQL ORDER BY ASC)
-//  OrderByDescending() — sorts descending (SQL ORDER BY DESC)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Console.WriteLine("==============================================");
 Console.WriteLine("  Lab 05 — Retrieve Data");
@@ -27,12 +26,10 @@ using var context = new ApplicationDbContext();
 await context.Database.EnsureCreatedAsync();
 await SeedDataAsync(context);
 
-// ----------------------------------------------------------
-// 1. Find() — retrieve by primary key
-// ----------------------------------------------------------
+
+
 PrintHeader("1. Find() — Retrieve by Primary Key");
 
-// Find() checks the in-memory cache before hitting the database
 var foundProduct = await context.Products.FindAsync(1);
 if (foundProduct is not null)
     Console.WriteLine($"  Found: [{foundProduct.Id}] {foundProduct.Name}  ${foundProduct.Price:F2}");
@@ -41,14 +38,13 @@ else
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 2. First() — first record matching a condition
-// ----------------------------------------------------------
+
+
 PrintHeader("2. First() — First Matching Record");
 
 try
 {
-    // First() throws InvalidOperationException if no match
+
     var firstElectronics = await context.Products
         .Include(p => p.Category)
         .Where(p => p.Category!.Name == "Electronics")
@@ -63,12 +59,10 @@ catch (InvalidOperationException)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 3. FirstOrDefault() — first match or null
-// ----------------------------------------------------------
+
+
 PrintHeader("3. FirstOrDefault() — First Match or Null");
 
-// Safe version — returns null instead of throwing
 var cheapProduct = await context.Products
     .FirstOrDefaultAsync(p => p.Price < 25.00m);
 
@@ -83,14 +77,13 @@ Console.WriteLine(notFound is not null
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 4. Single() / SingleOrDefault()
-// ----------------------------------------------------------
+
+
 PrintHeader("4. Single() / SingleOrDefault()");
 
 try
 {
-    // Single() — use when you expect exactly ONE result
+
     var laptop = await context.Products.SingleAsync(p => p.Name == "Laptop Pro 15");
     Console.WriteLine($"  Single result: {laptop.Name}  ${laptop.Price:F2}  Stock: {laptop.StockQuantity}");
 }
@@ -99,7 +92,6 @@ catch (InvalidOperationException ex)
     Console.WriteLine($"  Single() error: {ex.Message}");
 }
 
-// SingleOrDefault() — safe version
 var yogaMat = await context.Products.SingleOrDefaultAsync(p => p.Name == "Yoga Mat");
 Console.WriteLine(yogaMat is not null
     ? $"  SingleOrDefault: {yogaMat.Name}  ${yogaMat.Price:F2}"
@@ -107,9 +99,8 @@ Console.WriteLine(yogaMat is not null
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 5. ToList() — retrieve all records
-// ----------------------------------------------------------
+
+
 PrintHeader("5. ToList() — Retrieve All Records");
 
 var allCategories = await context.Categories.ToListAsync();
@@ -119,12 +110,10 @@ foreach (var cat in allCategories)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 6. Where() — filter with a predicate
-// ----------------------------------------------------------
+
+
 PrintHeader("6. Where() — Filter Records");
 
-// Products with stock below 60
 var lowStock = await context.Products
     .Where(p => p.StockQuantity < 60)
     .OrderBy(p => p.StockQuantity)
@@ -136,7 +125,6 @@ foreach (var p in lowStock)
 
 Console.WriteLine();
 
-// Products in a price range
 var midRange = await context.Products
     .Where(p => p.Price >= 50m && p.Price <= 150m)
     .ToListAsync();
@@ -147,9 +135,8 @@ foreach (var p in midRange)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 7. OrderBy() and OrderByDescending()
-// ----------------------------------------------------------
+
+
 PrintHeader("7. OrderBy() / OrderByDescending()");
 
 var byPriceAsc = await context.Products
@@ -164,7 +151,7 @@ Console.WriteLine();
 
 var byPriceDesc = await context.Products
     .OrderByDescending(p => p.Price)
-    .Take(3)   // top 3 most expensive
+    .Take(3)   
     .ToListAsync();
 
 Console.WriteLine("  Top 3 most expensive products:");
@@ -174,9 +161,8 @@ foreach (var p in byPriceDesc)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 8. Combined query — Where + OrderBy + Include
-// ----------------------------------------------------------
+
+
 PrintHeader("8. Combined Query — Where + OrderBy + Include");
 
 var electronicsInStock = await context.Products
@@ -195,9 +181,8 @@ foreach (var p in electronicsInStock)
 Console.WriteLine();
 Console.WriteLine("Lab 05 complete. Proceed to Lab 06 — Update & Delete.");
 
-// ============================================================
-// Seed helper — inserts data if the DB is empty
-// ============================================================
+
+
 static async Task SeedDataAsync(ApplicationDbContext ctx)
 {
     if (await ctx.Categories.AnyAsync()) return;

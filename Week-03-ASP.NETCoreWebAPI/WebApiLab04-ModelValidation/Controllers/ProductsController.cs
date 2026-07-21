@@ -1,30 +1,28 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApiLab04.DTOs;
 using WebApiLab04.Interfaces;
 using WebApiLab04.Models;
 
 namespace WebApiLab04.Controllers;
 
-// ============================================================
-//  Lab 04 — Model Validation
-//  ProductsController
-// ============================================================
-//
-//  HOW VALIDATION WORKS WITH [ApiController]:
-//  -------------------------------------------
-//  1. Request arrives with JSON body
-//  2. ASP.NET Core deserialises JSON → CreateProductDto
-//  3. Data Annotations on the DTO are evaluated
-//  4. If any annotation fails → ModelState.IsValid = false
-//  5. [ApiController] automatically returns 400 Bad Request
-//     with a ProblemDetails response listing all errors
-//  6. Your action method is NOT called if validation fails
-//
-//  This means you do NOT need to write:
-//      if (!ModelState.IsValid) return BadRequest(ModelState);
-//  [ApiController] handles it automatically.
 
-/// <summary>Products controller with full model validation.</summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
@@ -36,7 +34,6 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
-    /// <summary>Retrieves all products.</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -44,7 +41,6 @@ public class ProductsController : ControllerBase
         return Ok(products.Select(ToResponseDto));
     }
 
-    /// <summary>Retrieves a product by ID.</summary>
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -58,15 +54,14 @@ public class ProductsController : ControllerBase
         return Ok(ToResponseDto(product));
     }
 
-    /// <summary>
-    /// Creates a new product.
-    /// Validation is enforced by Data Annotations on CreateProductDto.
-    /// </summary>
+
+
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
     {
-        // If we reach here, [ApiController] has already validated the DTO.
-        // ModelState.IsValid is guaranteed to be true at this point.
+
+
         try
         {
             var product = new Product
@@ -87,10 +82,9 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Updates an existing product.
-    /// Validation is enforced by Data Annotations on UpdateProductDto.
-    /// </summary>
+
+
+
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
     {
@@ -117,7 +111,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>Deletes a product by ID.</summary>
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

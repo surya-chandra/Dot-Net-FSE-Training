@@ -1,11 +1,10 @@
-using WebApiLab02.Models;
+﻿using WebApiLab02.Models;
 
 namespace WebApiLab02.Interfaces;
 
-/// <summary>
-/// Defines the business logic contract for Product operations.
-/// The Service layer sits between the Controller and Repository.
-/// </summary>
+
+
+
 public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();

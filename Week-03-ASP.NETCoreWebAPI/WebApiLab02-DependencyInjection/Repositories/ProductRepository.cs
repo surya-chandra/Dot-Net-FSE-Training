@@ -1,25 +1,23 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApiLab02.Data;
 using WebApiLab02.Interfaces;
 using WebApiLab02.Models;
 
 namespace WebApiLab02.Repositories;
 
-// ============================================================
-//  REPOSITORY PATTERN
-//  -------------------
-//  The Repository encapsulates all data access logic.
-//  It is the ONLY class that talks directly to the DbContext.
-//
-//  Benefits:
-//  - Centralises data access code
-//  - Makes the Service layer testable (mock the repository)
-//  - Separates business logic from data access concerns
-// ============================================================
 
-/// <summary>
-/// Concrete implementation of IProductRepository using EF Core.
-/// </summary>
+
+
+
+
+
+
+
+
+
+
+
+
 public class ProductRepository : IProductRepository
 {
     private readonly ApplicationDbContext _context;

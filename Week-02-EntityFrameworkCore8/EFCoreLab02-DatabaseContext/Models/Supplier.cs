@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EFCoreLab02.Models;
 
-/// <summary>
-/// Represents a product supplier.
-/// </summary>
+
+
 public class Supplier
 {
     [Key]
@@ -21,6 +20,5 @@ public class Supplier
     [MaxLength(20)]
     public string? Phone { get; set; }
 
-    // Navigation property
     public ICollection<Product> Products { get; set; } = new List<Product>();
 }

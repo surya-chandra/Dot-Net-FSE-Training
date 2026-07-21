@@ -1,12 +1,11 @@
-using EFCoreLab03.Models;
+﻿using EFCoreLab03.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreLab03.Data;
 
-/// <summary>
-/// DbContext for Lab 03 — Migrations demo.
-/// EnsureCreated() vs Migrate() is demonstrated in Program.cs.
-/// </summary>
+
+
+
 public class ApplicationDbContext : DbContext
 {
     public DbSet<Category> Categories { get; set; }

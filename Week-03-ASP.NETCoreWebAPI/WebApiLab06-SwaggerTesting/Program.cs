@@ -1,25 +1,25 @@
-// ============================================================
-//  Lab 06 — Swagger & API Testing
-//  ASP.NET Core 8 Web API — Retail Inventory System
-// ============================================================
-//
-//  SWAGGER / OPENAPI:
-//  ------------------
-//  Swagger is a toolset for documenting and testing REST APIs.
-//  It generates an interactive UI from your code automatically.
-//
-//  COMPONENTS:
-//  -----------
-//  Swashbuckle.AspNetCore  — NuGet package that integrates Swagger
-//  OpenAPI Specification   — JSON/YAML document describing the API
-//  Swagger UI              — Browser-based interactive test client
-//
-//  HOW IT WORKS:
-//  -------------
-//  1. AddSwaggerGen() scans your controllers and generates
-//     an OpenAPI JSON document at /swagger/v1/swagger.json
-//  2. UseSwagger() serves that JSON document
-//  3. UseSwaggerUI() serves the interactive HTML UI at /swagger
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
@@ -45,9 +45,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddEndpointsApiExplorer();
 
-// ----------------------------------------------------------
-// Configure Swagger with full API metadata
-// ----------------------------------------------------------
+
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -64,8 +63,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Include XML comments from the project's documentation file
-    // This populates Swagger UI with /// <summary> descriptions
+
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -80,18 +78,16 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
-// Global exception middleware — must be first
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
-// ----------------------------------------------------------
-// Enable Swagger in all environments for this training lab
-// (In production, restrict to Development only)
-// ----------------------------------------------------------
+
+
+
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Retail Inventory API v1");
-    options.RoutePrefix = "swagger";   // UI available at /swagger
+    options.RoutePrefix = "swagger";   
     options.DocumentTitle = "Retail Inventory API — Lab 06";
 });
 

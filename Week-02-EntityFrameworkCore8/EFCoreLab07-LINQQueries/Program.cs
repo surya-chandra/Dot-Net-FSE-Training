@@ -1,20 +1,19 @@
-using EFCoreLab07.Data;
+﻿using EFCoreLab07.Data;
 using EFCoreLab07.Models;
 using Microsoft.EntityFrameworkCore;
 
-// ============================================================
-//  Lab 07 — LINQ Queries
-//  Retail Inventory System
-// ============================================================
-//
-//  LINQ (Language Integrated Query) lets you write database
-//  queries directly in C# using strongly-typed lambda expressions.
-//  EF Core translates each LINQ query into optimised SQL at runtime.
-//
-//  OPERATORS COVERED:
-//  Where, Select, OrderBy, OrderByDescending, GroupBy,
-//  Count, Sum, Average, Max, Min, Any, All,
-//  Include, ThenInclude
+
+
+
+
+
+
+
+
+
+
+
+
 
 Console.WriteLine("==============================================");
 Console.WriteLine("  Lab 07 — LINQ Queries");
@@ -24,9 +23,8 @@ using var context = new ApplicationDbContext();
 await context.Database.EnsureCreatedAsync();
 await SeedDataAsync(context);
 
-// ----------------------------------------------------------
-// 1. Where — filter rows
-// ----------------------------------------------------------
+
+
 PrintHeader("1. Where — Products priced above $100");
 
 var expensive = await context.Products
@@ -38,9 +36,8 @@ foreach (var p in expensive)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 2. Select — project to anonymous type
-// ----------------------------------------------------------
+
+
 PrintHeader("2. Select — Project to Name + Price only");
 
 var projection = await context.Products
@@ -52,9 +49,8 @@ foreach (var item in projection)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 3. OrderBy — ascending sort
-// ----------------------------------------------------------
+
+
 PrintHeader("3. OrderBy — Products sorted by Name (A→Z)");
 
 var byName = await context.Products
@@ -67,9 +63,8 @@ foreach (var name in byName)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 4. OrderByDescending — descending sort
-// ----------------------------------------------------------
+
+
 PrintHeader("4. OrderByDescending — Top 5 most expensive");
 
 var top5 = await context.Products
@@ -83,9 +78,8 @@ foreach (var p in top5)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 5. GroupBy — group products by category
-// ----------------------------------------------------------
+
+
 PrintHeader("5. GroupBy — Products grouped by Category");
 
 var grouped = await context.Products
@@ -108,9 +102,8 @@ foreach (var group in grouped)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 6. Count — total and conditional count
-// ----------------------------------------------------------
+
+
 PrintHeader("6. Count — Total and Conditional");
 
 int totalProducts    = await context.Products.CountAsync();
@@ -123,9 +116,8 @@ Console.WriteLine($"  Low stock (qty < 50): {lowStockCount}");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 7. Sum — total inventory value
-// ----------------------------------------------------------
+
+
 PrintHeader("7. Sum — Total Inventory Value");
 
 decimal totalValue = await context.Products
@@ -141,9 +133,8 @@ Console.WriteLine($"  Electronics inventory value  : ${electronicsValue:N2}");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 8. Average — mean price per category
-// ----------------------------------------------------------
+
+
 PrintHeader("8. Average — Mean Price per Category");
 
 var avgByCategory = await context.Products
@@ -162,9 +153,8 @@ foreach (var item in avgByCategory)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 9. Max / Min — price extremes
-// ----------------------------------------------------------
+
+
 PrintHeader("9. Max / Min — Price Extremes");
 
 decimal maxPrice = await context.Products.MaxAsync(p => p.Price);
@@ -178,9 +168,8 @@ Console.WriteLine($"  Cheapest       : {cheapest.Name,-28}  ${minPrice:F2}");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 10. Any — existence check
-// ----------------------------------------------------------
+
+
 PrintHeader("10. Any — Existence Checks");
 
 bool hasElectronics  = await context.Products
@@ -197,9 +186,8 @@ Console.WriteLine($"  Has premium (>$1000) items: {hasPremium}");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 11. All — universal condition check
-// ----------------------------------------------------------
+
+
 PrintHeader("11. All — Universal Condition Checks");
 
 bool allInStock      = await context.Products.AllAsync(p => p.StockQuantity > 0);
@@ -210,9 +198,8 @@ Console.WriteLine($"  All products have price>0 : {allPositivePrice}");
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 12. Include — eager load one level of related data
-// ----------------------------------------------------------
+
+
 PrintHeader("12. Include — Eager Load Category");
 
 var productsWithCategory = await context.Products
@@ -228,9 +215,8 @@ foreach (var p in productsWithCategory)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 13. ThenInclude — eager load two levels deep
-// ----------------------------------------------------------
+
+
 PrintHeader("13. ThenInclude — Eager Load Category → Products → Supplier");
 
 var categories = await context.Categories
@@ -248,11 +234,10 @@ foreach (var cat in categories)
 
 Console.WriteLine();
 
-// ----------------------------------------------------------
-// 14. Combined real-world query
-//     "Find all Electronics products from TechSupply Co.
-//      that cost more than $50, sorted by price descending"
-// ----------------------------------------------------------
+
+
+
+
 PrintHeader("14. Combined Query — Real-World Scenario");
 
 var result = await context.Products
@@ -282,9 +267,8 @@ Console.WriteLine();
 Console.WriteLine("Lab 07 complete. Week 02 — Entity Framework Core 8 finished!");
 Console.WriteLine("=============================================================");
 
-// ============================================================
-// Seed helper — rich dataset for meaningful LINQ demos
-// ============================================================
+
+
 static async Task SeedDataAsync(ApplicationDbContext ctx)
 {
     if (await ctx.Categories.AnyAsync()) return;
@@ -304,21 +288,21 @@ static async Task SeedDataAsync(ApplicationDbContext ctx)
     await ctx.SaveChangesAsync();
 
     ctx.Products.AddRange(
-        // Electronics
+
         new Product { Name = "Laptop Pro 15",       Price = 1299.99m, StockQuantity = 50,  CategoryId = electronics.Id, SupplierId = techSupplier.Id    },
         new Product { Name = "Wireless Mouse",      Price =   29.99m, StockQuantity = 200, CategoryId = electronics.Id, SupplierId = techSupplier.Id    },
         new Product { Name = "Mechanical Keyboard", Price =   89.99m, StockQuantity = 150, CategoryId = electronics.Id, SupplierId = techSupplier.Id    },
         new Product { Name = "4K Monitor 27\"",     Price =  449.99m, StockQuantity = 30,  CategoryId = electronics.Id, SupplierId = techSupplier.Id    },
         new Product { Name = "USB-C Hub",           Price =   39.99m, StockQuantity = 180, CategoryId = electronics.Id, SupplierId = techSupplier.Id    },
-        // Clothing
+
         new Product { Name = "Running Shoes",       Price =   79.99m, StockQuantity = 100, CategoryId = clothing.Id,    SupplierId = fashionSupplier.Id },
         new Product { Name = "Denim Jacket",        Price =   59.99m, StockQuantity = 75,  CategoryId = clothing.Id,    SupplierId = fashionSupplier.Id },
         new Product { Name = "Sports T-Shirt",      Price =   19.99m, StockQuantity = 300, CategoryId = clothing.Id,    SupplierId = fashionSupplier.Id },
-        // Home & Garden
+
         new Product { Name = "Garden Hose 50ft",    Price =   34.99m, StockQuantity = 60,  CategoryId = homeGarden.Id,  SupplierId = homeSupplier.Id    },
         new Product { Name = "Power Drill",         Price =  119.99m, StockQuantity = 40,  CategoryId = homeGarden.Id,  SupplierId = homeSupplier.Id    },
         new Product { Name = "LED Desk Lamp",       Price =   44.99m, StockQuantity = 90,  CategoryId = homeGarden.Id,  SupplierId = homeSupplier.Id    },
-        // Sports
+
         new Product { Name = "Yoga Mat",            Price =   24.99m, StockQuantity = 120, CategoryId = sports.Id,      SupplierId = sportSupplier.Id   },
         new Product { Name = "Dumbbells Set 20kg",  Price =   69.99m, StockQuantity = 55,  CategoryId = sports.Id,      SupplierId = sportSupplier.Id   },
         new Product { Name = "Resistance Bands",    Price =   14.99m, StockQuantity = 250, CategoryId = sports.Id,      SupplierId = sportSupplier.Id   }

@@ -1,19 +1,18 @@
-using WebApiLab05.Exceptions;
+﻿using WebApiLab05.Exceptions;
 using WebApiLab05.Interfaces;
 using WebApiLab05.Models;
 
 namespace WebApiLab05.Services;
 
-// ============================================================
-//  EXCEPTION HANDLING BEST PRACTICES
-//  -----------------------------------
-//  The Service layer throws typed custom exceptions.
-//  The GlobalExceptionMiddleware catches them and maps each
-//  to the correct HTTP status code.
-//
-//  This keeps controllers clean — no try-catch needed there.
-//  Controllers simply call the service and return the result.
-// ============================================================
+
+
+
+
+
+
+
+
+
 
 public class ProductService : IProductService
 {
@@ -38,7 +37,6 @@ public class ProductService : IProductService
 
         var product = await _repository.GetByIdAsync(id);
 
-        // Throw NotFoundException — middleware maps this to 404
         if (product is null)
             throw new NotFoundException("Product", id);
 
@@ -49,7 +47,6 @@ public class ProductService : IProductService
     {
         _logger.LogInformation("Creating product: {Name}.", product.Name);
 
-        // Business rule validation — throws ValidationException → 400
         if (product.Price <= 0)
             throw new ValidationException("Price must be greater than zero.");
 

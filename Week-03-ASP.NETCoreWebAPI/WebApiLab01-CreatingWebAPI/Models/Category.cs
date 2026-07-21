@@ -1,6 +1,5 @@
-namespace WebApiLab01.Models;
+﻿namespace WebApiLab01.Models;
 
-/// <summary>Represents a product category.</summary>
 public class Category
 {
     public int Id { get; set; }

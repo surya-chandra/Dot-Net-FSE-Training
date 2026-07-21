@@ -1,6 +1,5 @@
-namespace WebApiLab01.Models;
+﻿namespace WebApiLab01.Models;
 
-/// <summary>Represents a product in the Retail Inventory System.</summary>
 public class Product
 {
     public int Id { get; set; }

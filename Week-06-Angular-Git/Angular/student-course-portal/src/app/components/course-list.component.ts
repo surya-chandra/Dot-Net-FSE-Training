@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseService } from '../services/course.service';
 import { Course } from '../models/course.model';
@@ -17,7 +17,7 @@ import { CourseCardComponent } from './course-card.component';
       <ng-template #courseContent>
         <div *ngIf="courses.length > 0; else noCourses">
           <app-course-card 
-            *ngFor="let c of courses; let i = index; trackBy: trackByCourseId" 
+
             [course]="c" 
             (enrollRequested)="onEnroll($event)">
           </app-course-card>

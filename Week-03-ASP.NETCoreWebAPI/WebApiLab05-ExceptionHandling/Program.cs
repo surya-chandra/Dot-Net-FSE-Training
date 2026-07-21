@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApiLab05.Data;
 using WebApiLab05.Interfaces;
 using WebApiLab05.Middleware;
@@ -29,11 +29,10 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
-// ---------------------------------------------------------------
-// Register GlobalExceptionMiddleware FIRST in the pipeline.
-// It must wrap all other middleware so it can catch any exception
-// thrown anywhere in the request processing chain.
-// ---------------------------------------------------------------
+
+
+
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
